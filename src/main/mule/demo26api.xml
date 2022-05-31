@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="984e3926-0a3a-4126-8feb-4fc1e71f2816" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="demo26apiFlow" doc:id="34f8f44f-635e-499a-afc5-2f2cea83b927" >
+		<http:listener doc:name="Listener" doc:id="84fc5365-0c5a-4d1c-994e-c4e572f28973" config-ref="HTTP_Listener_config" path="/demo"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8d3ad267-e0de-471e-ab56-3f391ba7d95c" message='#["demo api started"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="5bf55ad8-1c5d-4dda-bfd9-a8507b483677" name="demo26apiSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="97fcded5-53ff-44d9-8cf6-fb27ed9564a7" message='#["back to mainflow"]'/>
+	</flow>
+	<sub-flow name="demo26apiSub_Flow" doc:id="30de70b5-35e3-427f-8daf-2f49a99f89f5" >
+		<logger level="INFO" doc:name="Logger" doc:id="c7de1a3b-d31e-4379-9ab2-d99a7eaf4448" message='#["subflow"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="c2fbbd4f-09c6-461d-b704-212cb14cac6d" name="demo26apiFlow1"/>
+		<logger level="INFO" doc:name="Logger" doc:id="fc5af6c1-b356-4298-8d41-e25b807f23f5" message='#["back to subflow"]'/>
+	</sub-flow>
+	<flow name="demo26apiFlow1" doc:id="4547be25-8391-436b-9837-3a2fba44f46f" >
+		<logger level="INFO" doc:name="Logger" doc:id="3d2d2d34-4b6c-4640-b2af-2334436eab49" message='#["private flow"]'/>
+	</flow>
+</mule>
